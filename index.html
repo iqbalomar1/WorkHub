@@ -1667,6 +1667,11 @@
         <span class="nav-icon">📊</span><span class="nav-label">Reports</span>
       </div>
 
+      <div class="sb-section">SUBMIT</div>
+      <div class="nav-item" data-view="request-task">
+        <span class="nav-icon">📝</span><span class="nav-label">Request a Task</span>
+      </div>
+
       <div class="sb-bottom">
         <div class="sb-user">
           <div class="sb-avatar">AL</div>
@@ -1875,6 +1880,114 @@
             <div class="panel-body" id="report-category-chart"></div>
           </div>
         </div>
+
+        <!-- ========== REQUEST A TASK VIEW ========== -->
+        <div id="request-task-view" class="view">
+          <div style="max-width:680px;margin:0 auto;">
+            <div class="panel" style="margin-bottom:20px;">
+              <div class="panel-header" style="background:var(--navy);color:var(--white);border-radius:var(--radius) var(--radius) 0 0;padding:20px 24px;">
+                <div>
+                  <h2 style="font-size:18px;font-weight:700;color:var(--white);">📝 Submit a Work Request</h2>
+                  <p style="font-size:13px;color:rgba(255,255,255,.7);margin-top:4px;">Fill in the form below to submit a task to the operations team.</p>
+                </div>
+              </div>
+              <div class="panel-body" style="padding:28px 24px;">
+                <div id="rt-success-banner" style="display:none;background:#dcfce7;border:1px solid #86efac;border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:20px;color:#15803d;font-weight:600;font-size:13px;">
+                  ✅ Your request has been submitted successfully! Reference ID: <span id="rt-ref-id"></span>
+                </div>
+
+                <form id="rt-form" novalidate>
+                  <input type="hidden" id="rt-hidden-id">
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="rt-name">Full Name <span style="color:var(--p-high);">*</span></label>
+                      <input type="text" class="form-control" id="rt-name" placeholder="e.g. Jane Smith">
+                    </div>
+                    <div class="form-group">
+                      <label for="rt-email">Email Address <span style="color:var(--p-high);">*</span></label>
+                      <input type="email" class="form-control" id="rt-email" placeholder="e.g. jane@agency.gov">
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="rt-dept">Department</label>
+                      <input type="text" class="form-control" id="rt-dept" placeholder="e.g. Finance, HR, Operations…">
+                    </div>
+                    <div class="form-group">
+                      <label for="rt-category">Category <span style="color:var(--p-high);">*</span></label>
+                      <select class="form-control" id="rt-category">
+                        <option value="">— Select category —</option>
+                        <option>IT &amp; Systems</option>
+                        <option>Infrastructure</option>
+                        <option>HR &amp; Recruitment</option>
+                        <option>Finance &amp; Procurement</option>
+                        <option>Policy &amp; Compliance</option>
+                        <option>Communications</option>
+                        <option>Operations</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="rt-title">Request Title <span style="color:var(--p-high);">*</span></label>
+                    <input type="text" class="form-control" id="rt-title" placeholder="Brief summary of what is needed…">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="rt-desc">Description <span style="color:var(--p-high);">*</span></label>
+                    <textarea class="form-control" id="rt-desc" style="min-height:120px;" placeholder="Provide as much detail as possible — background, goals, expected outcome, relevant links or references…"></textarea>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="rt-priority">Priority</label>
+                      <select class="form-control" id="rt-priority">
+                        <option value="Low">Low – Nice to have</option>
+                        <option value="Medium" selected>Medium – Normal</option>
+                        <option value="High">High – Urgent</option>
+                        <option value="Critical">Critical – Blocking</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="rt-due">Requested Due Date</label>
+                      <input type="date" class="form-control" id="rt-due">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="rt-attach">Attachments / References</label>
+                    <input type="text" class="form-control" id="rt-attach" placeholder="Comma-separated file names or URLs…">
+                    <small style="color:var(--text-muted);font-size:11px;margin-top:4px;display:block;">e.g. brief.pdf, specs-v2.xlsx, https://confluence/page</small>
+                  </div>
+
+                  <div style="margin-top:8px;padding:12px 14px;background:var(--surface2);border-radius:var(--radius-sm);font-size:12px;color:var(--text-muted);border-left:3px solid var(--teal);">
+                    ℹ️ Submissions are reviewed by the Operations team within <strong>2 business days</strong>. You will be notified via email once your request is assigned.
+                  </div>
+
+                  <div style="display:flex;gap:12px;margin-top:24px;justify-content:flex-end;">
+                    <button type="button" class="btn btn-ghost" id="rt-reset-btn">↺ Reset</button>
+                    <button type="button" class="btn btn-teal" id="rt-submit-btn">Submit Request →</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- My Submitted Requests -->
+            <div class="panel">
+              <div class="panel-header">
+                <h3>📬 My Submitted Requests</h3>
+                <span style="margin-left:auto;font-size:11px;color:var(--text-muted);" id="rt-my-count"></span>
+              </div>
+              <div class="panel-body" style="padding:0;">
+                <div id="rt-my-list" style="padding:8px 0;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end request-task-view -->
 
       </div>
       <!-- end #content -->
@@ -2471,6 +2584,10 @@
         title: 'Reports & Analytics',
         subtitle: 'Insights, statistics, and CSV exports'
       },
+      'request-task': {
+        title: 'Request a Task',
+        subtitle: 'Submit a new work request to the operations team'
+      },
     };
 
     function navigate(view) {
@@ -2493,6 +2610,7 @@
       if (view === 'team') renderTeam();
       if (view === 'calendar') renderCalendar();
       if (view === 'reports') renderReports();
+      if (view === 'request-task') renderRequestTask();
     }
 
     /* ================================================================
@@ -3221,6 +3339,124 @@
     // Close on Escape
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(ov => closeModal(ov.id));
+    });
+
+    /* ================================================================
+       REQUEST TASK PAGE
+       ================================================================ */
+    let rtSubmissions = JSON.parse(localStorage.getItem('workhub_rt_submissions') || '[]');
+
+    function saveRtSubmissions() {
+      localStorage.setItem('workhub_rt_submissions', JSON.stringify(rtSubmissions));
+    }
+
+    function renderRequestTask() {
+      // Render "My Submitted Requests" panel
+      const list = document.getElementById('rt-my-list');
+      const countEl = document.getElementById('rt-my-count');
+      if (!list) return;
+      if (rtSubmissions.length === 0) {
+        list.innerHTML = `<div style="padding:16px;color:var(--text-muted);font-size:13px;font-style:italic;">No submissions yet.</div>`;
+        countEl.textContent = '';
+      } else {
+        countEl.textContent = rtSubmissions.length + ' submission' + (rtSubmissions.length > 1 ? 's' : '');
+        list.innerHTML = rtSubmissions.slice().reverse().map(s => {
+          const statusColor = { Backlog: 'var(--s-backlog)', 'To Do': 'var(--s-todo)', 'In Progress': 'var(--s-inprog)', 'In Review': 'var(--s-review)', Completed: 'var(--s-done)' }[s.status] || 'var(--s-todo)';
+          const prioColor = { Low: 'var(--p-low)', Medium: 'var(--p-medium)', High: 'var(--p-high)', Critical: 'var(--p-critical)' }[s.priority] || 'var(--p-medium)';
+          return `<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);">
+            <div style="min-width:72px;font-size:11px;font-weight:700;color:var(--text-muted);">${s.id}</div>
+            <div style="flex:1;">
+              <div style="font-weight:600;font-size:13px;">${s.title}</div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">By ${s.requester} &middot; ${s.category} &middot; Submitted ${s.created}</div>
+            </div>
+            <span style="font-size:11px;font-weight:600;color:${prioColor};background:${prioColor}1a;padding:2px 8px;border-radius:20px;">${s.priority}</span>
+            <span style="font-size:11px;font-weight:600;color:${statusColor};background:${statusColor}1a;padding:2px 8px;border-radius:20px;">${s.status}</span>
+          </div>`;
+        }).join('');
+      }
+    }
+
+    function rtReset() {
+      document.getElementById('rt-name').value = '';
+      document.getElementById('rt-email').value = '';
+      document.getElementById('rt-dept').value = '';
+      document.getElementById('rt-category').value = '';
+      document.getElementById('rt-title').value = '';
+      document.getElementById('rt-desc').value = '';
+      document.getElementById('rt-priority').value = 'Medium';
+      document.getElementById('rt-due').value = '';
+      document.getElementById('rt-attach').value = '';
+      document.getElementById('rt-success-banner').style.display = 'none';
+    }
+
+    document.getElementById('rt-reset-btn').addEventListener('click', rtReset);
+
+    document.getElementById('rt-submit-btn').addEventListener('click', () => {
+      const name = document.getElementById('rt-name').value.trim();
+      const email = document.getElementById('rt-email').value.trim();
+      const category = document.getElementById('rt-category').value;
+      const title = document.getElementById('rt-title').value.trim();
+      const desc = document.getElementById('rt-desc').value.trim();
+
+      if (!name) { toast('Full Name is required', 'error'); return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast('A valid Email Address is required', 'error'); return; }
+      if (!category) { toast('Please select a Category', 'error'); return; }
+      if (!title) { toast('Request Title is required', 'error'); return; }
+      if (!desc) { toast('Description is required', 'error'); return; }
+
+      // Create the task in the main task list
+      const newId = genId();
+      const dept = document.getElementById('rt-dept').value.trim();
+      const requesterLabel = dept ? `${name} (${dept})` : name;
+      const newTask = {
+        id: newId,
+        title,
+        desc: `[Submitted via Request Form]\nEmail: ${email}\n\n${desc}`,
+        requester: requesterLabel,
+        assignee: '',
+        priority: document.getElementById('rt-priority').value,
+        status: 'Backlog',
+        dueDate: document.getElementById('rt-due').value,
+        attachments: document.getElementById('rt-attach').value.trim(),
+        category,
+        comments: [],
+        created: today()
+      };
+      tasks.unshift(newTask);
+      saveState();
+
+      // Track in submissions log
+      rtSubmissions.push({
+        id: newId,
+        title,
+        requester: requesterLabel,
+        category,
+        priority: newTask.priority,
+        status: 'Backlog',
+        created: today()
+      });
+      saveRtSubmissions();
+
+      // Update badge
+      document.getElementById('badge-requests').textContent = tasks.filter(t => t.status !== 'Completed').length;
+
+      // Show success banner
+      document.getElementById('rt-ref-id').textContent = newId;
+      document.getElementById('rt-success-banner').style.display = 'block';
+
+      // Reset form fields (keep banner visible)
+      document.getElementById('rt-name').value = '';
+      document.getElementById('rt-email').value = '';
+      document.getElementById('rt-dept').value = '';
+      document.getElementById('rt-category').value = '';
+      document.getElementById('rt-title').value = '';
+      document.getElementById('rt-desc').value = '';
+      document.getElementById('rt-priority').value = 'Medium';
+      document.getElementById('rt-due').value = '';
+      document.getElementById('rt-attach').value = '';
+
+      renderRequestTask();
+      toast(`Request <strong>${newId}</strong> submitted!`);
     });
 
     /* ================================================================
